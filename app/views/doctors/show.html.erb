@@ -1,0 +1,15 @@
+<div class="jumbotron">
+  <h1 class="display-4"><%= @doctor.first_name %> <%= @doctor.last_name %></h1>
+
+  <p class="lead">
+  	<%= @doctor.phone %> | 
+  	<%= @doctor.email %>
+	</p>
+	<br/>
+
+  <p class="lead">
+	<%= link_to 'Edit', edit_doctor_path(@doctor), class:"btn btn-danger" %>
+	<%= link_to 'Back', doctors_path, class:"btn btn-secondary" %>
+  </p>
+</div>
+

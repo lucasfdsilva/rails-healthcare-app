@@ -1,0 +1,67 @@
+<div class="card">
+  <h5 class="card-header">Edit Profile</h5>
+  <div class="card-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="field form-group">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, class:"form-control", autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+    <br/>
+
+    <div class="field form-group">
+      <h4>Change Password </h4><i>(leave blank if you don't want to change it)</i>
+      <br/>
+      <%= f.label :password %> <br />
+      <%= f.password_field :password, class:"form-control", autocomplete: "new-password" %>
+      <% if @minimum_password_length %>
+        <em><%= @minimum_password_length %> characters minimum</em>
+      <% end %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, class:"form-control", autocomplete: "new-password" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :current_password %> <i>(for verification)</i><br />
+      <%= f.password_field :current_password, class:"form-control", autocomplete: "current-password" %>
+    </div>
+    <br/>
+
+    <div class="actions">
+      <%= f.submit "Update", class:"btn btn-danger" %>
+    </div>
+    <br/>
+  <% end %>
+
+
+  </div>
+</div>
+<br/>
+
+<div class="card">
+  <h5 class="card-header">Delete my account</h5>
+  <div class="card-body">
+    <p class="card-title">Delete all your records from our database?</p>
+    <%= button_to "Delete my account", registration_path(resource_name), class:"btn btn-dark", data: { confirm: "Are you sure?" }, method: :delete %>
+  </div>
+</div>
+<br/>
+
+<%= link_to "Back", :back, class:"btn btn-secondary" %>
+
+
+
+
+
+
+
+
+
