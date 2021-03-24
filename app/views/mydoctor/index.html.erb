@@ -1,0 +1,21 @@
+<h1>My Doctor</h1>
+
+<% @doctor = User.where("id LIKE ?", current_user.doctor_id) %>
+
+<% if !@doctor.blank? %>
+	<div class="jumbotron">
+	  <h1 class="display-4"><%= @doctor.first.first_name %> <%= @doctor.first.last_name %></h1>
+
+	  <p class="lead">
+	  	<%= @doctor.first.phone %> | 
+	  	<%= @doctor.first.email %>
+		</p>
+		<br/>
+
+	  <p class="lead">
+		<%= link_to 'Back', root_path, class:"btn btn-secondary" %>
+	  </p>
+	</div>
+<% else %>
+	<h3>You don't have an assigned Doctor.</h3>
+	<% end %>

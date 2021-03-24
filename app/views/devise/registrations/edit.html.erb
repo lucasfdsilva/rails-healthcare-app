@@ -1,9 +1,62 @@
+<% @doctor = User.where("id LIKE ?", current_user.doctor_id) %>
+
 <div class="card">
   <h5 class="card-header">Edit Profile</h5>
   <div class="card-body">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
+    <div class="field form-group">
+      <%= f.label :user_id, "User ID" %><br />
+      <%= f.text_field :user_id, :readonly => true, class:"form-control", autofocus: true, value:  current_user.id %>
+    </div>
+    <br/>
+
+    <div class="field form-group">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name, class:"form-control", autofocus: true, autocomplete: "first_name" %>
+    </div>
+    <br/>
+
+    <div class="field form-group">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name, class:"form-control", autofocus: true, autocomplete: "last_name" %>
+    </div>
+    <br/>
+
+    <div class="field form-group">
+      <%= f.label :phone %><br />
+      <%= f.text_field :phone, class:"form-control", autofocus: true, autocomplete: "phone" %>
+    </div>
+    <br/>
+
+    <div class="field form-check">
+      <%= f.label :doctor, class:"form-check-label" %>
+      <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
+    </div>
+    <br/>
+
+    <% if !current_user.doctor? %>
+      <div class="field form-group">
+        <%= f.label :id, "Search for your doctor" %><br />
+        <input type="search" id="doctorInput" class="form-control" placeholder="Search for your doctor" aria-label="Search" data-behavior="autocomplete">
+      </div>
+
+
+      <script type="text/javascript">document.getElementById('doctorInput').value= "papai"</script> 
+      
+      <br/> 
+
+      <div class="field form-group">
+        <%= f.label :doctor_id, "Doctor ID" %><br />
+        <%= f.number_field :doctor_id, class:"form-control", id: "doctorID", autofocus: true, autocomplete: "doctor_id" %>
+      </div>
+      <% end %>
+    <br/>  
+
+    <br/> 
+
+    <h5>Account Details</h5>
     <div class="field form-group">
       <%= f.label :email %><br />
       <%= f.email_field :email, class:"form-control", autofocus: true, autocomplete: "email" %>
@@ -15,8 +68,7 @@
     <br/>
 
     <div class="field form-group">
-      <h4>Change Password </h4><i>(leave blank if you don't want to change it)</i>
-      <br/>
+      <h6>Change Password </h6>
       <%= f.label :password %> <br />
       <%= f.password_field :password, class:"form-control", autocomplete: "new-password" %>
       <% if @minimum_password_length %>
@@ -29,8 +81,9 @@
       <%= f.password_field :password_confirmation, class:"form-control", autocomplete: "new-password" %>
     </div>
 
+    <br/>
     <div class="field form-group">
-      <%= f.label :current_password %> <i>(for verification)</i><br />
+      <%= f.label :current_password %> <i>(must be filled before updating for verification)</i><br />
       <%= f.password_field :current_password, class:"form-control", autocomplete: "current-password" %>
     </div>
     <br/>
@@ -40,8 +93,7 @@
     </div>
     <br/>
   <% end %>
-
-
+  
   </div>
 </div>
 <br/>
@@ -56,6 +108,8 @@
 <br/>
 
 <%= link_to "Back", :back, class:"btn btn-secondary" %>
+<br/><br/>
+<br/><br/>
 
 
 

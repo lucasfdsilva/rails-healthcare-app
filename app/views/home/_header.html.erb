@@ -24,26 +24,42 @@
 	          </ul>
         	</li>
 
+
+          <% if current_user.doctor? %>
+            <li class="nav-item">
+              <%= link_to "My Patients", patients_index_path(:user_id => current_user.id), class:"nav-link" %>
+            </li>
+            <% end %>
+
+            <% if !current_user.doctor? %>
+            <li class="nav-item">
+              <%= link_to "My Doctor", mydoctor_index_path(:user_id => current_user.id), class:"nav-link" %>
+            </li>
+            <% end %>
+
+
+          <li class="nav-item">
+            <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
+          </li>
+
 	        <li class="nav-item">
 	        	<%= link_to "Logout", destroy_user_session_path, method: :delete, class:"nav-link" %>
 	        </li>
 
-	        <li class="nav-item">
-	        	<%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
-	        </li>
+	        
         <% else %>
-	        <li class="nav-item">
-	        	<%= link_to "Sign Up", new_user_registration_path, class:"nav-link" %>
-	        </li>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_registration_path, class:"nav-link" %>
+          </li>
 
-	        <li class="nav-item">
-	        	<%= link_to "Sign In", new_user_session_path, class:"nav-link" %>
-	        </li>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, class:"nav-link" %>
+          </li>
         <% end %>
 
       </ul>
       <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" data-behavior="autocomplete">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

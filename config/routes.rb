@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'mydoctor/index'
+  get 'patients/index'
+  get 'users/index'
+  get :search, controller: :main
   devise_for :users
   resources :doctors
   #get 'home/index'

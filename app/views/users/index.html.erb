@@ -1,0 +1,9 @@
+<h1>All Registered Users</h1>
+
+<% if user_signed_in? %>
+	<% @users.each do |user| %>
+	  <%= user.email %><br/>
+	<% end %>
+<% else %>
+	<h2>Please log in as an Admin User to see a list of all registered users.
+<% end %>
