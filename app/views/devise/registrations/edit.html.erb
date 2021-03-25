@@ -30,31 +30,50 @@
     </div>
     <br/>
 
-    <div class="field form-check">
-      <%= f.label :doctor, class:"form-check-label" %>
-      <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
-    </div>
-    <br/>
+    <% if current_user.admin? %>
+      <div class="field form-check">
+        <%= f.label :doctor, class:"form-check-label" %>
+        <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
+      </div>
+      <br/>
+    
 
-    <% if !current_user.doctor? %>
+      <div class="field form-check">
+        <%= f.label :admin, class:"form-check-label" %>
+        <%= f.check_box :admin, class:"form-check-input", autofocus: true, value: "admin" %>
+      </div>
+      <br/>
+    <% end %>
+
+
+    <% if current_user.doctor == false || current_user.admin == false %>
+      <br/>
+      <h5>Your Doctor Details</h5>
+
+      <% if @doctor %>
+        <div class="field form-group">
+          <label>Name:</label> <%= @doctor.first.first_name + " " + @doctor.first.last_name%><br/>
+          <label>Phone:</label> <%= @doctor.first.phone %><br/>
+          <label>Email:</label> <%= @doctor.first.email %><br/>
+        </div> 
+        <br/> 
+        <h6>Changing Doctors?</h6>
+      <% else %>
+        <h6>Please Select your Doctor</h6>
+      <% end %>
+
       <div class="field form-group">
         <%= f.label :id, "Search for your doctor" %><br />
-        <input type="search" id="doctorInput" class="form-control" placeholder="Search for your doctor" aria-label="Search" data-behavior="autocomplete">
+        <input type="search" id="doctorInput" class="form-control" placeholder="Enter your doctor's name or email" aria-label="Search" data-behavior="autocomplete">
       </div>
-
-
-      <script type="text/javascript">document.getElementById('doctorInput').value= "papai"</script> 
       
       <br/> 
 
       <div class="field form-group">
-        <%= f.label :doctor_id, "Doctor ID" %><br />
-        <%= f.number_field :doctor_id, class:"form-control", id: "doctorID", autofocus: true, autocomplete: "doctor_id" %>
+        <%= f.number_field :doctor_id, class:"form-control", id: "doctorID", autofocus: true, autocomplete: "doctor_id", type:"hidden" %>
       </div>
-      <% end %>
+    <% end %>
     <br/>  
-
-    <br/> 
 
     <h5>Account Details</h5>
     <div class="field form-group">

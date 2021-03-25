@@ -5,9 +5,10 @@ class MainController < ApplicationController
 	end
 
 	def search
-		@doctors = User.where("first_name LIKE ? or last_name LIKE ? or email LIKE ?", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
-	end
+		@doctors = User.where("(first_name LIKE ? or last_name LIKE ? or email LIKE ?) and doctor LIKE true", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
 
+		@users = User.where("(first_name LIKE ? or last_name LIKE ? or email LIKE ?) and doctor LIKE false", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
+	end
 
 	private
 

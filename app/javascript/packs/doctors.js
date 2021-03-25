@@ -1,22 +1,18 @@
 document.addEventListener("turbolinks:load", function() {
-	console.log("People Custom JS File Loaded Successfuly")
+	console.log("Doctors Custom JS File Loaded Successfuly")
 
-	$input = $('*[data-behavior="autocomplete"]')
+	//$input = $('*[data-behavior="autocomplete"]')
 	$inputDoctor = $('*[id="doctorInput"]')
 
   	var options = {
   		getValue: "name",
 	    url: function(phrase) {
-	      return "/search.json?q=" + phrase;
+	      return "/find.json?q=" + phrase;
 	    },
 	    categories: [
 	    	{
 	    		listLocation: "doctors",
 	    		header: "<strong>Doctors</strong",
-	    	},
-	    	{
-	    		listLocation: "users",
-	    		header: "<strong>Users</strong",
 	    	}
 	    ],
 	    list:{
@@ -32,7 +28,7 @@ document.addEventListener("turbolinks:load", function() {
 	    }
   	};
 
-  	$input.easyAutocomplete(options);
+  	$inputDoctor.easyAutocomplete(options);
 });
 
   	

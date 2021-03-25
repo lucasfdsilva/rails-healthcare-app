@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_111720) do
+ActiveRecord::Schema.define(version: 2021_03_25_110527) do
 
   create_table "doctors", force: :cascade do |t|
     t.string "first_name"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_111720) do
     t.string "phone"
     t.integer "doctor_id"
     t.boolean "doctor"
+    t.boolean "admin"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -43,11 +43,18 @@
       </div>
       <br/>
 
-    <h5>Are you a doctor?</h5>
-    <div class="field form-check">
-      <%= f.label :doctor, class:"form-check-label" %>
-      <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
-    </div>
+      <h5>Is this user a doctor?</h5>
+      <div class="field form-check">
+        <%= f.label :doctor, class:"form-check-label" %>
+        <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
+      </div>
+      <br/>
+
+      <h5>Is this user an Admin?</h5>
+      <div class="field form-check">
+        <%= f.label :admin, class:"form-check-label" %>
+        <%= f.check_box :admin, class:"form-check-input", autofocus: true, value: "admin" %>
+      </div>
      <br/> <br/>
 
       <div class="actions">

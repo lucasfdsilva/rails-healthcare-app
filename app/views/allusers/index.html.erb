@@ -1,0 +1,94 @@
+<h1>All Registered Users</h1>
+<br/>
+
+<% if current_user.admin? %>
+	
+	<h4>Users</h4>
+	<table class="table table-striped table-hover table-bordered">
+	  <thead class="table-danger">
+	    <tr>
+	      <th>First name</th>
+	      <th>Last name</th>
+	      <th>Phone</th>
+	      <th>Email</th>
+	      <th>Doctor</th>
+	      <th>Admin</th>
+	    </tr>
+	  </thead>
+
+    	<tbody>
+	    <% @users.each do | user | %>
+	      <tr>
+	        <td><%= user.first_name %></td>
+	        <td><%= user.last_name %></td>
+	        <td><%= user.phone %></td>
+	        <td><%= user.email %></td>
+	        <td><%= user.doctor %></td>
+	        <td><%= user.admin %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	<br>
+
+	<h4>Doctors</h4>
+	<table class="table table-striped table-hover table-bordered">
+	  <thead class="table-danger">
+	    <tr>
+	      <th>First name</th>
+	      <th>Last name</th>
+	      <th>Phone</th>
+	      <th>Email</th>
+	      <th>Doctor</th>
+	      <th>Admin</th>
+	    </tr>
+	  </thead>
+
+    	<tbody>
+	    <% @doctors.each do | user | %>
+	      <tr>
+	        <td><%= user.first_name %></td>
+	        <td><%= user.last_name %></td>
+	        <td><%= user.phone %></td>
+	        <td><%= user.email %></td>
+	        <td><%= user.doctor %></td>
+	        <td><%= user.admin %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	<br>
+
+	<h4>Admins</h4>
+	<table class="table table-striped table-hover table-bordered">
+	  <thead class="table-danger">
+	    <tr>
+	      <th>First name</th>
+	      <th>Last name</th>
+	      <th>Phone</th>
+	      <th>Email</th>
+	      <th>Doctor</th>
+	      <th>Admin</th>
+	    </tr>
+	  </thead>
+
+    	<tbody>
+	    <% @admins.each do | user | %>
+	      <tr>
+	        <td><%= user.first_name %></td>
+	        <td><%= user.last_name %></td>
+	        <td><%= user.phone %></td>
+	        <td><%= user.email %></td>
+	        <td><%= user.doctor %></td>
+	        <td><%= user.admin %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	<br>
+
+<% else %>
+	<h2>Please log in as an Admin User to see a list of all registered users.
+<% end %>
+
+

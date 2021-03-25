@@ -25,17 +25,23 @@
         	</li>
 
 
-          <% if current_user.doctor? %>
+          <% if current_user.doctor == true %>
             <li class="nav-item">
               <%= link_to "My Patients", patients_index_path(:user_id => current_user.id), class:"nav-link" %>
             </li>
-            <% end %>
+          <% end %>
 
-            <% if !current_user.doctor? %>
+          <% if current_user.doctor == false && current_user.admin == false %>
             <li class="nav-item">
               <%= link_to "My Doctor", mydoctor_index_path(:user_id => current_user.id), class:"nav-link" %>
             </li>
-            <% end %>
+          <% end %>
+
+          <% if current_user.admin == true %>
+            <li class="nav-item">
+              <%= link_to "View All Users", allusers_index_path, class:"nav-link" %>
+            </li>
+          <% end %>
 
 
           <li class="nav-item">
