@@ -1,0 +1,42 @@
+<%= form_with(model: prescription) do |form| %>
+  <% if prescription.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(prescription.errors.count, "error") %> prohibited this prescription from being saved:</h2>
+
+      <ul>
+        <% prescription.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :id, "Search for your patient" %>
+    <input type="search" id="patientInput" class="form-control" placeholder="Enter your patient's name or email" aria-label="Search" data-behavior="autocomplete">
+  </div>
+
+  <%= form.number_field :doctor_id, class:"form-control", type:"hidden", value: current_user.id %>
+
+  <div class="field form-control">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: "patientID" ,class:"form-control" %>
+  </div>
+
+  <div class="field form-control">
+    <%= form.label :title %>
+    <%= form.text_field :title, class:"form-control" %>
+  </div>
+
+  <div class="field form-control">
+    <%= form.label :description %>
+    <%= form.text_area :description, class:"form-control"%>
+  </div>
+  <br/>
+
+  <div class="actions">
+    <%= form.submit class:"btn btn-danger" %>
+  </div>
+  <br/>
+
+<% end %>

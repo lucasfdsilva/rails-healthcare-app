@@ -1,7 +1,6 @@
 document.addEventListener("turbolinks:load", function() {
 	console.log("Doctors Custom JS File Loaded Successfuly")
 
-	//$input = $('*[data-behavior="autocomplete"]')
 	$inputDoctor = $('*[id="doctorInput"]')
 
   	var options = {
