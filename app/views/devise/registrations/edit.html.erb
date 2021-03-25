@@ -31,26 +31,23 @@
     <br/>
 
     <% if current_user.admin? %>
+      <h5>User Permissions</h5>
       <div class="field form-check">
         <%= f.label :doctor, class:"form-check-label" %>
         <%= f.check_box :doctor, class:"form-check-input", autofocus: true, value: "doctor" %>
-      </div>
-      <br/>
-    
+      </div> 
 
       <div class="field form-check">
         <%= f.label :admin, class:"form-check-label" %>
         <%= f.check_box :admin, class:"form-check-input", autofocus: true, value: "admin" %>
       </div>
-      <br/>
     <% end %>
 
 
-    <% if current_user.doctor == false || current_user.admin == false %>
-      <br/>
+    <% if current_user.doctor == false && current_user.admin == false %>
       <h5>Your Doctor Details</h5>
-
-      <% if @doctor %>
+      <!-- Only show the doctor's details if the Object @doctor is not blank-->
+      <% if !@doctor.blank? %>
         <div class="field form-group">
           <label>Name:</label> <%= @doctor.first.first_name + " " + @doctor.first.last_name%><br/>
           <label>Phone:</label> <%= @doctor.first.phone %><br/>
@@ -66,15 +63,13 @@
         <%= f.label :id, "Search for your doctor" %><br />
         <input type="search" id="doctorInput" class="form-control" placeholder="Enter your doctor's name or email" aria-label="Search" data-behavior="autocomplete">
       </div>
-      
-      <br/> 
 
       <div class="field form-group">
         <%= f.number_field :doctor_id, class:"form-control", id: "doctorID", autofocus: true, autocomplete: "doctor_id", type:"hidden" %>
       </div>
     <% end %>
-    <br/>  
-
+      
+    <br/>   
     <h5>Account Details</h5>
     <div class="field form-group">
       <%= f.label :email %><br />
