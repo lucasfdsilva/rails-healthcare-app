@@ -1,3 +1,38 @@
 <h1>Home Page</h1>
 
+<% 
+	url = 'https://covid-193.p.rapidapi.com/statistics'
+	response = Faraday.get(url, {}, {
+		'Content-Type' => 'application/json',
+		'x-rapidapi-key' => '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d',
+		'x-rapidapi-host' => 'covid-193.p.rapidapi.com'})
+
+	datas = JSON.parse(response.body)
+%>
+
+
+
+<h4>Users</h4>
+	<table class="table table-striped table-hover table-bordered">
+	  <thead class="table-danger">
+	    <tr>
+	      <th>Continent</th>
+	      <th>Country</th>
+	      <th>Cases</th>
+	    </tr>
+	  </thead>
+
+    	<tbody>
+	    <% datas["response"].each do | country | %>
+	      <tr>
+	        <td><%= country["continent"] %></td>
+	        <td><%= country["country"] %></td>
+	        <td><%= country["cases"]["total"] %></td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+	<br>
+
+
 
