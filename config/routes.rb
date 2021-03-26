@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :prescriptions
+  get 'results', to: "results#results"
   get 'allusers/index'
   get 'mydoctor/index'
   get 'patients/index'

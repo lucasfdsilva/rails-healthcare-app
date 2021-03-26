@@ -15,9 +15,6 @@
             <li class="nav-item">
               <%= link_to "My Patients", patients_index_path(:user_id => current_user.id), class:"nav-link" %>
             </li>
-            <li class="nav-item">
-              <%= link_to "Prescriptions", prescriptions_path(:user_id => current_user.id), class:"nav-link" %>
-            </li>
           <% end %>
 
           <% if current_user.doctor == false && current_user.admin == false %>
@@ -32,6 +29,13 @@
             </li>
           <% end %>
 
+          <li class="nav-item">
+            <% if current_user.admin == false %>
+              <%= link_to "My Prescriptions", prescriptions_path(:user_id => current_user.id), class:"nav-link" %>
+            <% else %>
+              <%= link_to "View All Prescriptions", prescriptions_path(:user_id => current_user.id), class:"nav-link" %>
+            <% end %>
+          </li>
 
           <li class="nav-item">
             <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link" %>
@@ -57,9 +61,9 @@
         </li>
 
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" data-behavior="autocomplete">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" action="/results">
+        <input class="form-control mr-sm2" name="q" type="search" placeholder="Search" aria-label="Search" data-behavior="autocomplete">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>
   </div>

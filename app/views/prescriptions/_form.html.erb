@@ -11,17 +11,27 @@
     </div>
   <% end %>
 
+  <h5>Patient Details</h5>
+  <% if @prescription.user_id? %>
+    <% @patient = User.where("id LIKE ?", prescription.user_id) %>
+    <p>Name: <%= @patient.first.first_name + " " + @patient.first.last_name%></p>
+    <p>Phone: <%= @patient.first.phone %></p>
+    <p>Email: <%=@patient.first.email %></p>
+
+    <h6>Change Patient?</h6>
+  <% end %>
+
   <div class="field form-group">
     <%= form.label :id, "Search for your patient" %>
     <input type="search" id="patientInput" class="form-control" placeholder="Enter your patient's name or email" aria-label="Search" data-behavior="autocomplete">
   </div>
+  <br/>
 
   <%= form.number_field :doctor_id, class:"form-control", type:"hidden", value: current_user.id %>
 
-  <div class="field form-control">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: "patientID" ,class:"form-control" %>
-  </div>
+  <%= form.number_field :user_id, id: "patientID", class:"form-control", type:"hidden" %>
+
+  <h5>Prescription Details</h5>
 
   <div class="field form-control">
     <%= form.label :title %>

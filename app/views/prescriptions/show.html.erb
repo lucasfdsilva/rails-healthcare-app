@@ -1,24 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Doctor:</strong>
-  <%= @prescription.doctor_id %>
-</p>
+<% @doctor = User.where("id LIKE ?", @prescription.doctor_id)%>
+<% @patient = User.where("id LIKE ?", @prescription.user_id)%>
 
-<p>
-  <strong>User:</strong>
-  <%= @prescription.user_id %>
-</p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @prescription.title %>
-</p>
+<div class="jumbotron">
+    <h1 class="display-4">Prescription Details</h1>
+    <br/>
+    <h2><%= @prescription.title %></h2>
 
-<p>
-  <strong>Description:</strong>
-  <%= @prescription.description %>
-</p>
+    <p class="lead">
+      Doctor:
+      <%= @doctor.first.first_name + " " + @doctor.first.last_name%> | 
+      <%= @doctor.first.email %>
+    </p>
 
-<%= link_to 'Edit', edit_prescription_path(@prescription) %> |
-<%= link_to 'Back', prescriptions_path %>
+    <p class="lead">
+      Patient:
+      <%= @patient.first.first_name + " " + @patient.first.last_name%> | 
+      <%= @patient.first.email %>
+    </p>
+
+    <hr class="my-4">
+    <p><%= @prescription.description %></p>
+    <br/><br/>
+
+  </div>
+
+<% if current_user.doctor == true %>
+  <%= link_to 'Edit', edit_prescription_path(@prescription), class:"btn btn-secondary" %> 
+<% end %>
+<%= link_to 'Back', prescriptions_path, class:"btn btn-dark" %>

@@ -1,13 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Prescriptions</h1>
+<% if current_user.doctor == true %>
+  <% @myPrescriptions = Prescription.where("doctor_id LIKE ?", current_user.id)%>
+  <h1>My Prescriptions</h1>
+<% elsif current_user.doctor == false && current_user.admin == false %>
+  <% @myPrescriptions = Prescription.where("user_id LIKE ?", current_user.id)%>
+  <h1>My Prescriptions</h1>
+<% else %>
+  <% @myPrescriptions = Prescription.all%>
+  <h1>All Prescriptions Created</h1>
+<% end %>
 
 <table class="table table-striped table-hover table-bordered">
   <thead class="table-primary">
     <tr>
       <th>ID</th>
-      <th>Doctor</th>
-      <th>User</th>
+      <th>Patient</th>
       <th>Title</th>
       <th>Description</th>
       <th colspan="3"></th>
@@ -15,16 +23,18 @@
   </thead>
 
   <tbody>
-    <% @prescriptions.each do |prescription| %>
+    <% @myPrescriptions.each do |prescription| %>
+      <% @patient = User.where("id LIKE ?", prescription.user_id)%>
       <tr>
         <td><%= prescription.id %></td>
-        <td><%= prescription.doctor_id %></td>
-        <td><%= prescription.user_id %></td>
+        <td><%= @patient.first.first_name + " " + @patient.first.last_name %></td>
         <td><%= prescription.title %></td>
         <td><%= prescription.description %></td>
         <td><%= link_to 'Show', prescription, class:"btn btn-secondary" %></td>
-        <td><%= link_to 'Edit', edit_prescription_path(prescription), class:"btn btn-dark" %></td>
-        <td><%= link_to 'Destroy', prescription, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_user.doctor == true %>
+          <td><%= link_to 'Edit', edit_prescription_path(prescription), class:"btn btn-dark" %></td>
+          <td><%= link_to 'Destroy', prescription, class:"btn btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +42,6 @@
 
 <br>
 
-<%= link_to 'New Prescription', new_prescription_path %>
+<% if current_user.doctor == true %>
+  <%= link_to 'New Prescription', new_prescription_path, class:"btn btn-danger" %>
+<% end %>
