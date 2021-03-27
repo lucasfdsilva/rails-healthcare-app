@@ -1,38 +1,103 @@
 <h1>Home Page</h1>
 
-<% 
-	url = 'https://covid-193.p.rapidapi.com/statistics'
-	response = Faraday.get(url, {}, {
-		'Content-Type' => 'application/json',
-		'x-rapidapi-key' => '4a676d2b21msh5dd238b250b6e52p1ef36bjsncafc3a26696d',
-		'x-rapidapi-host' => 'covid-193.p.rapidapi.com'})
+<br/><br/>
 
-	datas = JSON.parse(response.body)
-%>
+<div class="container">
+  <div class="row">
 
+    <div class="col-sm-6 w-50">
 
+    	<h4>Latest News</h4>
+    	<div class="row">
+			<% @newsData["value"].each do | news | %>
+				<div class="col-sm-6 w-50">
+					<div class="card" style="width: 18rem; height: 25rem;">
+						<% if news["image"] %>
+							<img class="card-img-top" style="height: 11rem;" src= <%= news["image"]["thumbnail"]["contentUrl"] %> >
+						<% end %>
+						<div class="card-body">
+							<h5 class="card-title"> <a style="text-decoration: none;" href=<%= news["url"] %> ><%= news["name"].truncate(60) %></a></h5>
+							<br/>
+							<p class="card-text"><%= news["description"].truncate(180) %></p>
+						</div>
+					</div>
+					<br/>
+				</div>
+			<% end %>
+		</div>
 
-<h4>Users</h4>
-	<table class="table table-striped table-hover table-bordered">
-	  <thead class="table-danger">
-	    <tr>
-	      <th>Continent</th>
-	      <th>Country</th>
-	      <th>Cases</th>
-	    </tr>
-	  </thead>
+    </div>
 
-    	<tbody>
-	    <% datas["response"].each do | country | %>
-	      <tr>
-	        <td><%= country["continent"] %></td>
-	        <td><%= country["country"] %></td>
-	        <td><%= country["cases"]["total"] %></td>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
-	<br>
+    <div class="col-sm-6 w-50">
+
+    	<h4>Latest Covid-19 Figures</h4>
+
+    	<h7>Latest Update: <%= @covidData["response"][0]["day"] %></h7>
+
+    	<br/><br/>
+
+    	<table class="table table-striped table-hover table-bordered">
+		  <thead class="table-success">
+		    <tr>
+		      <th>Country</th>
+		      <th>Total Cases</th>
+		      <th>New Cases (24hrs)</th>
+		      <th>Total Deaths</th>
+		      <th>New Deaths (24hrs)</th>
+		    </tr>
+		  </thead>
+
+		  <tbody>	
+		    <% @covidData["response"].each do | country | %>
+		    	<% if country["country"] == "Ireland" %>
+		    		<tr>
+				        <td><%= country["country"] %></td>
+				        <td><%= country["cases"]["total"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+				        <td><%= country["cases"]["new"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+				        <td><%= country["deaths"]["total"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+				        <td><%= country["deaths"]["new"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+			      	</tr>
+		    	<% end %>
+		    <% end %>
+		  </tbody>
+		</table>
+
+		<table class="table table-striped table-hover table-bordered">
+		  <thead class="table-primary">
+		    <tr>
+		      <th>Country</th>
+		      <th>Total Cases</th>
+		      <th>New Cases (24hrs)</th>
+		      <th>Total Deaths</th>
+		      <th>New Deaths (24hrs)</th>
+		    </tr>
+		  </thead>
+
+			<tbody>
+		    <% @sortedCovidData.each do | country | %>
+		    	<% unless country["country"] == "All" ||
+		    		country["country"] == "Europe" ||
+		    		country["country"] == "North-America" ||
+		    		country["country"] == "South-America" ||
+		    		country["country"] == "Asia" || 
+		    		country["country"] == "Africa" %>
+			      <tr>
+			        <td><%= country["country"] %></td>
+			        <td><%= country["cases"]["total"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+			        <td><%= country["cases"]["new"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+			        <td><%= country["deaths"]["total"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+			        <td><%= country["deaths"]["new"].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse %></td>
+			      </tr>
+		        <% end %>
+		    <% end %>
+		  </tbody>
+		</table>
+
+    </div>	
+
+  </div>
+</div>
+
 
 
 
