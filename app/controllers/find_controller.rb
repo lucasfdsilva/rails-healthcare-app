@@ -5,9 +5,7 @@ class FindController < ApplicationController
 	end
 
 	def find
-		@doctors = User.where("(first_name = ? or last_name = ? or email = ?) and doctor = true", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
-
-		@doctors = User.where("first_name SIMILAR TO " + params[:q])
+		@doctors = User.where("first_name SIMILAR TO #{params[:q]}")
 	end
 
 
