@@ -5,13 +5,13 @@ class MainController < ApplicationController
 	end
 
 	def search
-		@doctors = User.where("(first_name LIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND doctor = true")
+		@doctors = User.where("(first_name ILIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND doctor = true")
 
-		@users = User.where("(first_name LIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND doctor = false AND admin = false")
+		@users = User.where("(first_name ILIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND doctor = false AND admin = false")
 
-		@admins = User.where("(first_name LIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND admin = true")
+		@admins = User.where("(first_name ILIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') AND admin = true")
 
-		@prescriptions = Prescription.where("title LIKE '%#{params[:q]}%'")
+		@prescriptions = Prescription.where("title ILIKE '%#{params[:q]}%'")
 	end
 
 	private
