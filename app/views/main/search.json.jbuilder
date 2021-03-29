@@ -16,7 +16,7 @@ end
 
 json.prescriptions do
 	json.array!(@prescriptions) do |prescription|
-		@patient = User.where("id LIKE ?", prescription.user_id)
+		@patient = User.where("id = ?", prescription.user_id)
 		json.prescription_id prescription.id
 		json.name "#{prescription.title}"
 	end

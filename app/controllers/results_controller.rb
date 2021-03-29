@@ -7,17 +7,17 @@ class ResultsController < ApplicationController
 			@firstName = params[:q].to_s.split(' ').first
 			@lastName = params[:q].to_s.split(' ').second
 
-			@doctors = User.where("(first_name LIKE ? and last_name LIKE ? or email LIKE ?) and doctor LIKE true", "%" + @firstName + "%", "%" + @lastName + "%", "%" + params[:q] + "%")
+			@doctors = User.where("(first_name = ? and last_name = ? or email = ?) and doctor = true", "%" + @firstName + "%", "%" + @lastName + "%", "%" + params[:q] + "%")
 
-			@users = User.where("(first_name LIKE ? and last_name LIKE ? or email LIKE ?) and doctor LIKE false", "%" + @firstName + "%", "%" + @lastName + "%", "%" + params[:q] + "%")
+			@users = User.where("(first_name = ? and last_name = ? or email = ?) and doctor = false", "%" + @firstName + "%", "%" + @lastName + "%", "%" + params[:q] + "%")
 
-			@prescriptions = Prescription.where("title LIKE ?", "%" + params[:q] + "%")
+			@prescriptions = Prescription.where("title = ?", "%" + params[:q] + "%")
 		else
-			@doctors = User.where("(first_name LIKE ? or last_name LIKE ? or email LIKE ?) and doctor LIKE true", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
+			@doctors = User.where("(first_name = ? or last_name = ? or email = ?) and doctor = true", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
 
-			@users = User.where("(first_name LIKE ? or last_name LIKE ? or email LIKE ?) and doctor LIKE false", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
+			@users = User.where("(first_name = ? or last_name = ? or email = ?) and doctor = false", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
 
-			@prescriptions = Prescription.where("title LIKE ?", "%" + params[:q] + "%")
+			@prescriptions = Prescription.where("title = ?", "%" + params[:q] + "%")
 		end
 	end
 

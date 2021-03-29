@@ -11,7 +11,6 @@
   </thead>
 
   <tbody>
-  	<% @user = User.where("doctor_id LIKE ?", current_user.id) %>
     <% @user.each do |user| %>
       <tr>
         <td><%= user.first_name %></td>

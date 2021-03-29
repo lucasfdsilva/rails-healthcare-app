@@ -1,10 +1,10 @@
 <p id="notice"><%= notice %></p>
 
 <% if current_user.doctor == true %>
-  <% @myPrescriptions = Prescription.where("doctor_id LIKE ?", current_user.id)%>
+  <% @myPrescriptions = Prescription.where("doctor_id = ?", current_user.id)%>
   <h1>My Prescriptions</h1>
 <% elsif current_user.doctor == false && current_user.admin == false %>
-  <% @myPrescriptions = Prescription.where("user_id LIKE ?", current_user.id)%>
+  <% @myPrescriptions = Prescription.where("user_id = ?", current_user.id)%>
   <h1>My Prescriptions</h1>
 <% else %>
   <% @myPrescriptions = Prescription.all%>
@@ -24,7 +24,7 @@
 
   <tbody>
     <% @myPrescriptions.each do |prescription| %>
-      <% @patient = User.where("id LIKE ?", prescription.user_id)%>
+      <% @patient = User.where("id = ?", prescription.user_id)%>
       <tr>
         <td><%= prescription.id %></td>
         <td><%= @patient.first.first_name + " " + @patient.first.last_name %></td>
