@@ -13,7 +13,7 @@ class ResultsController < ApplicationController
 
 			@admins = User.where("(first_name ILIKE '%#{@firstName}%' AND last_name ILIKE '%#{@lastName}%' OR email ILIKE '%#{params[:q]}%') AND admin = true")
 
-			@prescriptions = Prescription.where("title = ?", "%" + params[:q] + "%")
+			@prescriptions = Prescription.where("title ILIKE '%#{params[:q]}%'")
 		else
 			@doctors = User.where("(first_name ILIKE '%#{params[:q]}%' OR last_name ILIKE '%#{params[:q]}%' OR email ILIKE '%#{params[:q]}%') AND doctor = true")
 
