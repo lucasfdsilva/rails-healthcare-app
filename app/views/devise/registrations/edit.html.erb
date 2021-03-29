@@ -1,4 +1,4 @@
-<% @doctor = User.where("id LIKE ?", current_user.doctor_id) %>
+<% @doctor = User.where("id = ?", current_user.doctor_id) %>
 
 <div class="card">
   <h5 class="card-header">Edit Profile</h5>
