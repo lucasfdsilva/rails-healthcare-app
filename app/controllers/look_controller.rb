@@ -5,7 +5,7 @@ class LookController < ApplicationController
 	end
 
 	def look
-		@patients = User.where("(first_name = ? or last_name = ? or email = ?) and doctor = false and admin = false", "%" + params[:q] + "%", "%" + params[:q] + "%", "%" + params[:q] + "%")
+		@patients = User.where("(first_name LIKE '%#{params[:q]}%' OR last_name LIKE '%#{params[:q]}%' OR email LIKE '%#{params[:q]}%') and doctor = false AND admin = false")
 	end
 
 
