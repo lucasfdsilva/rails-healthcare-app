@@ -1,6 +1,6 @@
 <h1>My Doctor</h1>
 
-<% @doctor = User.where("id LIKE ?", current_user.doctor_id) %>
+<% @doctor = User.where("id = ?", current_user.doctor_id) %>
 
 <% if !@doctor.blank? %>
 	<div class="jumbotron">
