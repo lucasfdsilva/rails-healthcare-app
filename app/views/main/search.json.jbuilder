@@ -14,6 +14,14 @@ json.users do
 	end
 end
 
+json.admins do
+	json.array!(@admins) do |admin|
+		json.user_id admin.id
+		json.name "#{admin.first_name} #{admin.last_name}"
+		json.email admin.email
+	end
+end
+
 json.prescriptions do
 	json.array!(@prescriptions) do |prescription|
 		@patient = User.where("id = ?", prescription.user_id)
